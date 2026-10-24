@@ -1,14 +1,13 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/michaelzhan1/clustering/internal/load"
+	"github.com/michaelzhan1/clustering/internal/plot"
 	"github.com/mpraski/clusters"
 )
 
 func main() {
-	irisData, irisTargets, err := load.LoadIris()
+	irisData, _, err := load.LoadIris()
 
 	c, err := clusters.DBSCAN(8, 1.5, 4, clusters.EuclideanDistance)
 	if err != nil {
@@ -21,6 +20,8 @@ func main() {
 	}
 
 	preds := c.Guesses()
-	fmt.Println(preds)
-	fmt.Println(irisTargets)
+	// fmt.Println(preds)
+	// fmt.Println(irisTargets)
+
+	plot.Scatter("out.png", irisData, preds, "test")
 }
